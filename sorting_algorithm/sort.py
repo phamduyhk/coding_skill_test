@@ -92,6 +92,34 @@ def quick_sort(arr):
     right = quick_sort(right)
     return left + [ref] * ref_count + right
 
+def quick_sort_2(arr):
+    left = 0
+    right = len(arr)
+    
+    def sort(arr,left,right):
+        if left < right:
+            i = left
+            j = right
+            mid = int((left+right)/2)
+            pivot = arr[mid]
+            while(True):
+                while(arr[i]<pivot): i+=1
+                while(arr[j]>pivot): j-=1
+                if i>=j: break
+                # swap i, j
+                temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+                i += 1
+                j -= 1
+            sort(arr,left,i-1)
+            sort(arr, j+1, right)
+
+    return arr
+
+
+
+
 def count_sort(arr):
     max_num = max(arr)
     min_num = min(arr)
@@ -106,7 +134,7 @@ if __name__ == "__main__":
     arr = [random.randint(0,100) for i in range(20)]
     print("Array: ", arr)
     start = time.time()
-    sorted_arr = quick_sort(arr)
+    sorted_arr = quick_sort_2(arr)
     end = time.time()
     print("Sorted array: ", sorted_arr)
     print("Quick Sort Executed time: ", end-start)
